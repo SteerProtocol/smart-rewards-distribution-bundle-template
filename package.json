@@ -1,0 +1,56 @@
+{
+  "name": "@steerprotocol/smart-rewards-distribution-template-assemblyscript",
+  "version": "0.0.2",
+  "description": "AssemblyScript based smart rewards distribution bundle for the Steer Protocol",
+  "main": "index.js",
+  "scripts": {
+    "test": "yarn jest",
+    "build:debug": "asc assembly/index.ts --target debug --runPasses asyncify --exportRuntime --runtime stub",
+    "build:release": "asc assembly/index.ts --target release --runPasses asyncify --exportRuntime --runtime stub",
+    "docs": "typedoc --tsconfig ./tsconfig.json",
+    "bundle": "yarn build:debug && yarn test",
+    "semantic-release": "semantic-release",
+    "commit": "cz",
+    "patch-package": "patch-package",
+    "postinstall": "yarn patch-package && yarn build:debug",
+    "build": "yarn build:debug && yarn build:release"
+  },
+  "author": "Derek Barrera <derekbarrera@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/preset-typescript": "^7.23.3",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@steerprotocol/app-loader": "1.1.0",
+    "@steerprotocol/base-strategy": "^0.1.0",
+    "@steerprotocol/concentrated-liquidity-strategy": "^1.0.4",
+    "@steerprotocol/data-connector-loader": "0.2.0",
+    "@steerprotocol/strategy-utils": "^3.1.1",
+    "as-bignum": "^0.3.1",
+    "as-fetch": "^2.1.4",
+    "as-json": "^1.0.2",
+    "commitizen": "^4.2.4",
+    "conventional-changelog-conventionalcommits": "^7.0.2",
+    "json-as": "^0.8.2",
+    "patch-package": "^8.0.0",
+    "serve": "^14.2.1",
+    "typescript": "^5.3.2",
+    "visitor-as": "^0.11.4"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.23.5",
+    "@types/jest": "^29.5.10",
+    "@types/node": "^20.10.1",
+    "assemblyscript": "^0.27.22",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^29.7.0",
+    "cz-conventional-changelog": "3.3.0",
+    "jest": "^29.7.0",
+    "regenerator-runtime": "^0.14.0",
+    "semantic-release": "^22.0.8",
+    "typedoc": "^0.25.4"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  }
+}
