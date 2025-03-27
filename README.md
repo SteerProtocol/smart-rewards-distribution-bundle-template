@@ -45,8 +45,8 @@ The data connector accepts a configuration object with the following key compone
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/SteerProtocol/wasm-rial/lp-distribution-dummy
-cd lp-distribution-dummy
+git clone https://github.com/SteerProtocol/smart-rewards-distribution-bundle-template.git
+cd smart-rewards-distribution-bundle-template
 ```
 
 2. Install dependencies:
