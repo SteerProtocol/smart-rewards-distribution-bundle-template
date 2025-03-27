@@ -1,50 +1,89 @@
-# Steer Protocol Data Connector Template - Assemblyscript
+# Steer Protocol LP Distribution Bundle - AssemblyScript
 
-Access off-chain data within [Steer Protocol](https://steer.finance) Applications with our AssemblyScript data connector template. Expand your smart contract capabilities with off-chain data! More info can be found here: [Documentation](https://docs.steer.finance/data-connectors/writing-a-data-connector)
+This repository contains a WASM-based data distribution for [Steer Protocol](https://steer.finance) that handles liquidity pool reward distributions. The wasm bundle is written in AssemblyScript and provides functionality to calculate and distribute rewards based on user shares in liquidity pools.
 
-## TIP
-The Steer Protocol Strategy Template for AssemblyScript can be found here: [https://github.com/SteerProtocol/app-template-assemblyscript](https://github.com/SteerProtocol/app-template-assemblyscript)
+## Features
 
-Project Structure
-Data Connectors have 3 functions that will be directly called by the Keeper nodes during runtime. These functions are necessary along with configuration form function, other helper functions and classes will likely be helpful. For more information please see the Data Connector Interface. However, this design means that as a developer you only need to implement the methods which are required for the data connector to work.
+- Automated reward distribution calculations
+- Support for campaign-based reward systems
+- Blacklist functionality for excluding addresses
+- Integration with Steer Protocol's liquidity pools
+- WASM-based execution for efficient processing
 
-Below are the significant files and folders which you will want to get familiar with:
-```
-├── assembly      // Source code for the data connector
-├── build         // Output of the build process aka `yarn asbuild`
-├── coverage      // Coverage report for testing
-├── tests         // Test files with a built in test runner
-├── asconfig.json // Assemblyscript config
-├── index.js      // Javascript entrypoint for the data connector when running tests
-├── package.json  // Dependencies for the data connector
-```
+## Project Structure
 
-## TIP
-Bindings to [CCXT](https://www.npmjs.com/package/ccxt) and [Asyncify](https://web.dev/articles/asyncify) are built into [@steerprotocol/app-loader](https://npmjs.com/@steerprotocol/app-loader).
+The data connector implements three core functions that are called by Keeper nodes during runtime:
 
-# Project Setup
+1. `initialize(config: string)`: Sets up the execution configuration
+2. `execute()`: Handles the reward distribution logic
+3. `config()`: Provides the configuration schema for the frontend
 
-First, you need to clone the repository
+Key files and directories:
 
 ```
-git clone https://github.com/SteerProtocol/data-connector-template-assemblyscript
-
-cd data-connector-template-assemblyscript
+├── assembly/           # Source code for the distribution engine
+│   ├── index.ts       # Main implementation logic
+│   └── config.ts      # Configuration types and interfaces
+├── build/             # Output of the build process (yarn asbuild)
+├── coverage/          # Coverage report for testing
+├── tests/             # Test files with built-in test runner
+├── asconfig.json      # AssemblyScript configuration
+├── index.js          # JavaScript entrypoint for testing
+└── package.json      # Project dependencies
 ```
 
-Install the required dependencies
+## Configuration
 
+The data connector accepts a configuration object with the following key components:
+
+- Campaign settings (start/end blocks, distribution amounts, etc.)
+- Pool context (pool address, chain ID, etc.)
+- User list with share allocations
+- Blacklist for excluded addresses
+
+## Getting Started
+
+1. Clone the repository:
+```bash
+git clone https://github.com/SteerProtocol/wasm-rial/lp-distribution-dummy
+cd lp-distribution-dummy
 ```
+
+2. Install dependencies:
+```bash
 yarn install
 ```
 
-And take it for a test run.
-
-```
+3. Run tests:
+```bash
 yarn run build:debug && node index.js
 ```
 
-## INFO
-You will notice that there is a post-install script which will compile the ./assembly source folder and populate the ./build folder. This is done to make it easier to run the tests. We will cover this later.
+## Testing
 
-Once you have set up your project, you can begin defining your data connector.
+The project includes a test suite that verifies the distribution engine functionality. Tests can be run using:
+
+```bash
+yarn test
+```
+
+Example test implementation can be found in `tests/index.test.ts`.
+
+## Development
+
+To implement your own modifications:
+
+1. Update the configuration in `assembly/config.ts`
+2. Modify the execution logic in `assembly/index.ts`
+3. Add test cases in `tests/index.test.ts`
+4. Build and test your changes
+
+## Technical Details
+
+The data connector uses:
+- AssemblyScript for WASM compilation
+- JSON parsing for configuration handling
+- BigNum operations for precise calculations
+- Steer Protocol's app-loader for WASM execution
+
+For more information on developing data connectors, please refer to the [Steer Protocol Documentation](https://docs.steer.finance/data-connectors/writing-a-data-connector).
